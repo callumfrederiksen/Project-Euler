@@ -1,16 +1,3 @@
-const getConvergent = (start, list, index) => { // Gets the convergent decimal at provided index
-    list = list.slice(0, index - 1).reverse();
-    let sum = [1, list[0]];
-
-    for(let i = 1; i < index - 1; i++) {
-        sum = fractionAddition([list[i % list.length], 1], sum);
-        sum = sum.reverse();
-
-    }  
-    sum = fractionAddition([start, 1], sum);
-    return fractionSimplify(sum);
-}
-
 const fractionSimplify = (frac) => {
     let complete = false;
     let i = 1;
@@ -44,7 +31,7 @@ const e_inline = (length) => { // Gives inline fraction specific to e
         if(i == 0 || i == 1) {} 
         else if(i % 3 == 0) {
             arr.push(counter);
-            counter *= 2;
+            counter += 2;
         } else {
             arr.push(1);
         }
@@ -52,11 +39,33 @@ const e_inline = (length) => { // Gives inline fraction specific to e
     return arr;
 }
 
+const getConvergent = (start, list, index) => { // Gets the convergent decimal at provided index
+    list = list.slice(0, index - 1).reverse();
+    let conv = [1, list[0]];
+
+    for(let i = 1; i < index - 1; i++) {
+        conv = fractionAddition([list[i], 1], conv);
+        conv = conv.reverse();
+    }
+    conv = fractionAddition([start, 1], conv);
+    return (conv);
+}
+
+const solution = (index) => {
+    const numerator = getConvergent(2, e_inline(index), index)[0].toString();
+    console.log(numerator);
+    let sum = 0;
+    for(let i = 0; i < numerator.length; i++) {
+        sum += parseInt(numerator[i]);
+    }
+    return sum;
+}
+
 module.exports = {
     getConvergent,
     fractionAddition,
     fractionSimplify,
-    e_inline
+    e_inline,
+    solution
 }
 
-console.log(getConvergent(2, e_inline(200), 9));

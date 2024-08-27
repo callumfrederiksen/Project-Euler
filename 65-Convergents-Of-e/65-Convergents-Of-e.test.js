@@ -2,12 +2,13 @@ const {
     getConvergent,
     fractionAddition,
     fractionSimplify,
-    e_inline
+    e_inline,
+    solution
 } = require("./65-Convergents-Of-e");
 
 
 test("Algorithm Works", () => {
-    expect(getConvergent(1, e_inline(10), 10)).toEqual([1457, 536]);
+    expect(getConvergent(2, e_inline(10), 10)).toEqual([1457, 536]);
 });
 
 
@@ -21,4 +22,9 @@ test("Fraction Simplifiaction Works", () => {
 })
 
 
-console.log(getConvergent(1, e_inline(10), 10));
+test("Test example works", () => {
+    expect(solution(10)).toEqual(17);
+})
+
+console.log("ANSWER -- ");
+console.log(solution(42));
