@@ -17,11 +17,11 @@ const fractionSimplify = (frac) => {
 
 // Fraction addition required as small errors made using js and small numbers
 const fractionAddition = (firstFrac, secondFrac) => { // frac = [numerator, denominator]
-    let firstNumerator = firstFrac[0];
-    let secondNumerator = secondFrac[0];
-    firstNumerator *= secondFrac[1];
-    secondNumerator *= firstFrac[1];
-    return [firstNumerator + secondNumerator, firstFrac[1] * secondFrac[1]];
+    let firstNumerator = BigInt(firstFrac[0]);
+    let secondNumerator = BigInt(secondFrac[0]);
+    firstNumerator *= BigInt(secondFrac[1]);
+    secondNumerator *= BigInt(firstFrac[1]);
+    return [firstNumerator + secondNumerator, BigInt(firstFrac[1]) * BigInt(secondFrac[1])];
 }   
 
 const e_inline = (length) => { // Gives inline fraction specific to e
@@ -41,10 +41,10 @@ const e_inline = (length) => { // Gives inline fraction specific to e
 
 const getConvergent = (start, list, index) => { // Gets the convergent decimal at provided index
     list = list.slice(0, index - 1).reverse();
-    let conv = [1, list[0]];
+    let conv = [BigInt(1), BigInt(list[0])];
 
     for(let i = 1; i < index - 1; i++) {
-        conv = fractionAddition([list[i], 1], conv);
+        conv = fractionAddition([BigInt(list[i]), BigInt(1)], conv);
         conv = conv.reverse();
     }
     conv = fractionAddition([start, 1], conv);
@@ -69,3 +69,4 @@ module.exports = {
     solution
 }
 
+console.log(solution(100));
